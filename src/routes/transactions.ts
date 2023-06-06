@@ -13,7 +13,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       .where('session_id', sessionId)  
       .select()
 
-    return transactions
+    return { transactions }
   })
 
   app.get('/:id', { preHandler: [checkIfSessionExists] }, async (req) => {
@@ -43,7 +43,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       .sum('amount', { as: 'amount' })
       .first()
 
-    return summary
+    return { summary }
   })
   
   app.post('/', async (req, reply) => {
@@ -69,7 +69,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
     await knex('transactions').insert({
             id: crypto.randomUUID(),
             title,
-            amount: type === 'credit' ? amount : - amount + 1,
+            amount: type === 'credit' ? amount : amount * -1,
             session_id: sessionId
         })
 
