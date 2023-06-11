@@ -1,8 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-export const checkIfSessionExists = async (
-  req: FastifyRequest,
-  reply: FastifyReply,
+export const checkIfSessionExists = async (req: FastifyRequest, reply: FastifyReply,
 ) => {
   const sessionId = req.cookies.sessionId
 
